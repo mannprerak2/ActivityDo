@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/recText"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="@color/colorGrey"
+        android:text="@string/hold_to_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"/>
+
+    <ImageButton
+        android:id="@+id/recButton"
+        android:layout_margin="20dp"
+        android:background="@drawable/ic_keyboard_voice_black_24dp"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+</LinearLayout>
