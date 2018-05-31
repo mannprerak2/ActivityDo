@@ -7,9 +7,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +26,7 @@ import com.pkmnapps.activitydo.dataclasses.ListWidget;
 import com.pkmnapps.activitydo.dataclasses.SimpleTextWidget;
 import com.pkmnapps.activitydo.dataclasses.Widget;
 
+import java.security.PublicKey;
 import java.util.List;
 
 public class ActivityContentAdapter extends RecyclerView.Adapter{
@@ -31,26 +35,36 @@ public class ActivityContentAdapter extends RecyclerView.Adapter{
     TaskActivityInterface taskActivityInterface;
     public class MyTextViewHolder extends RecyclerView.ViewHolder {
         public TextView head,body;
+        public ImageButton more;
         public MyTextViewHolder(View view) {
             super(view);
             head = (TextView)view.findViewById(R.id.head_textView);
             body = (TextView)view.findViewById(R.id.body_textView);
+            more = (ImageButton)view.findViewById(R.id.more_button);
         }
     }
     public class MyListViewHolder extends RecyclerView.ViewHolder {
         public TextView head;
         public RecyclerView recyclerView;
+        public ImageButton more;
+
         public MyListViewHolder(View view) {
             super(view);
             head = (TextView)view.findViewById(R.id.head_textView);
             recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
+            more = (ImageButton)view.findViewById(R.id.more_button);
+
         }
     }
     public class MyImageViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
+        public ImageButton more;
+
         public MyImageViewHolder(View view) {
             super(view);
             imageView = (ImageView)view.findViewById(R.id.widget_imageView);
+            more = (ImageButton)view.findViewById(R.id.more_button);
+
         }
     }
     public class MyAudioViewHolder extends RecyclerView.ViewHolder {
@@ -103,6 +117,23 @@ public class ActivityContentAdapter extends RecyclerView.Adapter{
                             taskActivityInterface.editWidget(widgets.get(holder.getAdapterPosition()));
                         }
                     });
+                    ((MyTextViewHolder)holder).more.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(),((MyTextViewHolder)holder).more);
+
+                            popupMenu.getMenuInflater().inflate(R.menu.recycler_task_menu,popupMenu.getMenu());
+                            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    if(item.getItemId()==R.id.action_delete)
+                                        taskActivityInterface.deleteWidget(widgets.get(position));
+                                    return true;
+                                }
+                            });
+                            popupMenu.show();
+                        }
+                    });
                     break;
                 case MConstants.listW:
                     final ListWidget l = (ListWidget)widget;
@@ -122,6 +153,23 @@ public class ActivityContentAdapter extends RecyclerView.Adapter{
                             taskActivityInterface.editWidget(widgets.get(holder.getAdapterPosition()));
                         }
                     });
+                    ((MyListViewHolder)holder).more.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(),((MyListViewHolder)holder).more);
+
+                            popupMenu.getMenuInflater().inflate(R.menu.recycler_task_menu,popupMenu.getMenu());
+                            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    if(item.getItemId()==R.id.action_delete)
+                                        taskActivityInterface.deleteWidget(widgets.get(position));
+                                    return true;
+                                }
+                            });
+                            popupMenu.show();
+                        }
+                    });
                     break;
                 case MConstants.imageW:
                     final ImageWidget i = (ImageWidget)widget;
@@ -136,6 +184,23 @@ public class ActivityContentAdapter extends RecyclerView.Adapter{
                             Intent intent = new Intent(((MyImageViewHolder)holder).itemView.getContext(), ImageViewFullscreen.class);
                             intent.putExtra("image", i.getImageUri());
                             ((MyImageViewHolder)holder).itemView.getContext().startActivity(intent);
+                        }
+                    });
+                    ((MyImageViewHolder)holder).more.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(),((MyImageViewHolder)holder).more);
+
+                            popupMenu.getMenuInflater().inflate(R.menu.recycler_task_menu,popupMenu.getMenu());
+                            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    if(item.getItemId()==R.id.action_delete)
+                                        taskActivityInterface.deleteWidget(widgets.get(position));
+                                    return true;
+                                }
+                            });
+                            popupMenu.show();
                         }
                     });
                     break;

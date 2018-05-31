@@ -46,7 +46,7 @@ public class NoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_task_activity, menu);
+        getMenuInflater().inflate(R.menu.menu_note, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -56,6 +56,15 @@ public class NoteActivity extends AppCompatActivity {
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
                 this.finish();
+                return true;
+            case R.id.action_share:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                head = headE.getText().toString();
+                body = bodyE.getText().toString();
+                sendIntent.putExtra(Intent.EXTRA_TEXT, head + "\n" + body);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, "Share via"));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

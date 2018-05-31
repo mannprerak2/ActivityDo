@@ -6,7 +6,7 @@
         android:id="@+id/action_add_widget"
         android:orderInCategory="0"
         android:icon="@drawable/ic_add_box_black_24dp"
-        android:title="Add Widget"
+        android:title="@string/add_widget"
         app:showAsAction="ifRoom" />
 
     <item

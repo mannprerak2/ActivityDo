@@ -2,6 +2,9 @@ package com.pkmnapps.activitydo;
 
 public class MConstants {
     public static String[] colors = {"#3f79b4","#50933c","#afaf41","#af4541","#673a9e"};
+
+    public static String selectColor = "#32000000";
+
     public static final int textW = 1;
     public static final int listW = 2;
     public static final int imageW = 3;

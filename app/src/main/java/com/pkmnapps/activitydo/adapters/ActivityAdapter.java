@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.pkmnapps.activitydo.databasehelpers.DBHelper;
@@ -28,7 +31,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public CheckBox pinned;
-        public ImageButton edit;
+        public ImageButton more;
         public View v;
 
         public MyViewHolder(View view) {
@@ -36,7 +39,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.MyView
             name = (TextView)view.findViewById(R.id.nameTextView);
             pinned = (CheckBox)view.findViewById(R.id.pinCheckBox);
             v = (View)view.findViewById(R.id.colorView);
-            edit = (ImageButton)view.findViewById(R.id.edit_button);
+            more = (ImageButton)view.findViewById(R.id.more_button);
         }
     }
 
@@ -73,10 +76,23 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.MyView
                 homeFrag.updatePinnedMenu();
             }
         });
-        holder.edit.setOnClickListener(new View.OnClickListener() {
+        holder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                  homeFrag.displayEditDialog(activityData);
+                PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(),holder.more);
+
+                popupMenu.getMenuInflater().inflate(R.menu.activity_data_menu,popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if(item.getItemId()==R.id.action_edit)
+                            homeFrag.displayEditDialog(activityData);
+                        else if(item.getItemId()==R.id.action_delete)
+                            homeFrag.displayDeleteDialog(activityData);
+                        return true;
+                    }
+                });
+                popupMenu.show();
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +110,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.MyView
                 holder.itemView.getContext().startActivity(i);
             }
         });
+
     }
 
     @Override

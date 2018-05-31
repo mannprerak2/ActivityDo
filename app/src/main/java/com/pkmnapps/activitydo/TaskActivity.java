@@ -182,7 +182,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
                 if(index==-1000) {//new list
                     widgets.add(0,new Widget(MConstants.listW, listWidget,lid,0));
                 }
-                else {//edit list
+                else {//more list
                    widgets.set(index, new Widget(MConstants.listW, listWidget,lid,index));
                 }
                 //update ui
@@ -525,7 +525,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
                 intent2.putExtra("lid",listWidget.getUid());
                 intent2.putExtra("head",listWidget.getHead());
                 intent2.putExtra("index",widgets.indexOf(widget));
-                intent2.putExtra("edit","1");
+                intent2.putExtra("more","1");
                 startActivityForResult(intent2,MConstants.REQUEST_NEW_LIST);
                 break;
 

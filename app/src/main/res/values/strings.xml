@@ -18,4 +18,8 @@
     <string name="note">Note</string>
     <string name="add_new_activity">Add New Activity+</string>
     <string name="color_theme">Color Theme -</string>
+    <string name="add_widget">Add Widget</string>
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

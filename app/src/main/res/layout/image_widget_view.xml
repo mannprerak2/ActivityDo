@@ -9,11 +9,23 @@
     android:layout_margin="3dp"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="4dp">
-    <ImageView
-        android:layout_margin="10dp"
-        android:id="@+id/widget_imageView"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
-    </ImageView>
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/more_button"
+            android:background="@drawable/ic_more_vert_grey_24dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_margin="10dp"
+            android:id="@+id/widget_imageView"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+        </ImageView>
+    </LinearLayout>
 </android.support.v7.widget.CardView>

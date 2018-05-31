@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -92,11 +93,34 @@ public class ListActivity extends AppCompatActivity implements ListActivityInter
         super.onBackPressed();
     }
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_note, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
                 onBackPressed();
+                return true;
+            case R.id.action_share:
+                clearFocus();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(headE.getText().toString());
+                stringBuilder.append("\n\n");
+                for(ListItem l: listItems){
+                    stringBuilder.append("  - ");
+
+                    stringBuilder.append(l.getContent());
+
+                    stringBuilder.append("\n");
+                }
+                sendIntent.putExtra(Intent.EXTRA_TEXT, stringBuilder.toString());
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, "Share via"));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
