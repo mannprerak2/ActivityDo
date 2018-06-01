@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
         ItemTouchHelper.Callback itcallbackswipe = new ItemTouchHelper.Callback() {
             @Override
             public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                return makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT);
+                return makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE,ItemTouchHelper.RIGHT);
 
             }
 

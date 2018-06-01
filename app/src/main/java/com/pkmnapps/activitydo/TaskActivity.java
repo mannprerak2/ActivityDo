@@ -69,7 +69,6 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
     ActivityContentAdapter activityContentAdapter;
     List<Widget> widgets;
     Uri cameraImageUri = null;
-    ImageView selectedImage;
     String tempUid;
     DBHelperWidgets dbHelperWidgets;
     @Override
@@ -90,7 +89,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
         dbHelperWidgets = new DBHelperWidgets(TaskActivity.this);
 
         bottomSheetLayout = (BottomSheetLayout)findViewById(R.id.bottomsheet);
-        selectedImage =(ImageView)findViewById(R.id.imageView);
+        setUpJumpControls();
         setUpRecyclerView();
         initialiseRecyclerViewData();
     }
@@ -107,9 +106,6 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
                 this.finish();
-                return true;
-            case R.id.action_add_widget:
-                displayWidgetChoser();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -191,6 +187,42 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
             }
         }
     }
+
+    private void setUpJumpControls(){
+        TextView takeNote = (TextView)findViewById(R.id.note_tvbutton);
+        takeNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createList();
+            }
+        });
+        ImageButton more = (ImageButton)findViewById(R.id.more_button);
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayWidgetChoser();
+            }
+        });
+        ImageButton list = (ImageButton)findViewById(R.id.list_button);
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createList();
+            }
+        });
+        ImageButton image = (ImageButton)findViewById(R.id.image_button);
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkNeedsPermission()) {
+                    requestStoragePermission();
+                } else {
+                    createImageSheet();
+                }
+            }
+        });
+    }
+
 
     public void displayWidgetChoser(){
         //show bottomsheet

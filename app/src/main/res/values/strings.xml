@@ -22,4 +22,7 @@
     <string name="share">Share</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="quick_note">Take Quick Note</string>
+    <string name="list">List</string>
+    <string name="image">Image</string>
 </resources>

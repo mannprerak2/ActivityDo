@@ -25,7 +25,9 @@ import com.pkmnapps.activitydo.dataclasses.ActivityData;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        HomeFragment.OnFragmentInteractionListener
+        TabFragment.OnFragmentInteractionListener,
+        HomeFragment.OnFragmentInteractionListener,
+        QuickNotesFragment.OnFragmentInteractionListener
 {
     boolean home = true;
     NavigationView navigationView;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         //Set home fragment to load first here
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_parent_main,new HomeFragment(),"back").commit();
+        fragmentTransaction.replace(R.id.fragment_parent_main,new TabFragment(),"back").commit();
 
     }
 
@@ -112,12 +114,7 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -133,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         home = false;
         if (id == R.id.nav_home) {
             home = true;
-            fragmentTransaction.replace(R.id.fragment_parent_main,new HomeFragment()).commit();
+            fragmentTransaction.replace(R.id.fragment_parent_main,new TabFragment()).commit();
         }
         else if(id == R.id.nav_share){
 

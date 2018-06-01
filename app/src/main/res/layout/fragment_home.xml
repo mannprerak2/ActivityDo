@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical"
+    tools:context=".HomeFragment">
 
-        <Button
-            android:id="@+id/addNewButton"
-            android:textColor="@color/colorAccent"
-            android:background="#d7d7d7"
-            android:text="@string/add_new_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none" />
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_gravity="bottom"
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            />
+    <Button
+        android:id="@+id/addNewButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#d7d7d7"
+        android:text="@string/add_new_activity"
+        android:textColor="@color/colorAccent" />
 
-    </LinearLayout>
+</LinearLayout>
