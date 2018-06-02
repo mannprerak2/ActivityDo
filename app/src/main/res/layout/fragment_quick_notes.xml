@@ -1,52 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<com.flipboard.bottomsheet.BottomSheetLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomsheet"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".QuickNotesFragment">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="none" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:padding="5dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageButton
-            android:id="@+id/more_button"
-            android:layout_margin="5dp"
-            android:padding="15dp"
-            android:background="@drawable/ic_add_box_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:text="@string/quick_note"
-            android:id="@+id/note_tvbutton"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:layout_margin="5dp"
+        android:layout_height="match_parent"
+        tools:context=".TaskActivity"
+        tools:showIn="@layout/activity_task">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <ImageButton
-            android:id="@+id/list_button"
-            android:layout_margin="5dp"
-            android:padding="15dp"
-            android:background="@drawable/ic_list_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageButton
-            android:id="@+id/image_button"
-            android:layout_margin="5dp"
-            android:padding="15dp"
-            android:background="@drawable/ic_image_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:padding="10dp"
+            android:scrollbars="none" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/more_button"
+                android:layout_margin="5dp"
+                android:padding="15dp"
+                android:background="@drawable/ic_add_box_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="@string/quick_note"
+                android:id="@+id/note_tvbutton"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/list_button"
+                android:layout_margin="5dp"
+                android:padding="15dp"
+                android:background="@drawable/ic_list_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/image_button"
+                android:layout_margin="5dp"
+                android:padding="15dp"
+                android:background="@drawable/ic_image_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+</com.flipboard.bottomsheet.BottomSheetLayout>

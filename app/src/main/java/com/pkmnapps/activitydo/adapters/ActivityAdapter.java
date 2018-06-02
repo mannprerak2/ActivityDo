@@ -2,17 +2,19 @@ package com.pkmnapps.activitydo.adapters;
 
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -32,13 +34,13 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.MyView
         public TextView name;
         public CheckBox pinned;
         public ImageButton more;
-        public View v;
+        public ImageView label;
 
         public MyViewHolder(View view) {
             super(view);
             name = (TextView)view.findViewById(R.id.nameTextView);
             pinned = (CheckBox)view.findViewById(R.id.pinCheckBox);
-            v = (View)view.findViewById(R.id.colorView);
+            label = (ImageView) view.findViewById(R.id.colorView);
             more = (ImageButton)view.findViewById(R.id.more_button);
         }
     }
@@ -62,7 +64,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.MyView
         final ActivityData activityData = activityDataList.get(position);
         holder.pinned.setChecked(activityData.getPinned());
         holder.name.setText(activityData.getName());
-        holder.v.setBackgroundColor(Color.parseColor(activityData.getColor()));
+        holder.label.setColorFilter(Color.parseColor(activityData.getColor()), PorterDuff.Mode.SRC_ATOP);
         holder.pinned.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
