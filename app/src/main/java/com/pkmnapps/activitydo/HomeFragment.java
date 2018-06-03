@@ -139,6 +139,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
             }
         };
         ItemTouchHelper.Callback itcallbackswipe = new ItemTouchHelper.Callback() {
+
             @Override
             public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
                 return makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE,ItemTouchHelper.RIGHT);
@@ -160,8 +161,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itcallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        itemTouchHelperSwipe.attachToRecyclerView(recyclerView)
-        ;
+        itemTouchHelperSwipe.attachToRecyclerView(recyclerView);
         Button addNewButton = (Button)view.findViewById(R.id.addNewButton);
         addNewButton.setOnClickListener(new View.OnClickListener() {
             @Override

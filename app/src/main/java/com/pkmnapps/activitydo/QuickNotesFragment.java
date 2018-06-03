@@ -64,6 +64,7 @@ import static com.pkmnapps.activitydo.MConstants.REQUEST_STORAGE;
  * create an instance of this fragment.
  */
 public class QuickNotesFragment extends Fragment implements TaskActivityInterface{
+    static boolean activityMovedHere = false;
     public ActivityData activityData;
     BottomSheetLayout bottomSheetLayout;
     View currentSheetView;
@@ -136,6 +137,16 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        if(activityMovedHere){//used when item is moved to quicknotes from any activity
+            widgets.clear();
+            initialiseRecyclerViewData();
+            activityMovedHere = false;
+        }
+        super.onStart();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -239,6 +250,13 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
                 //update ui
                 dbHelperWidgets.updateAllWidgetSortOrders(widgets);
                 activityContentAdapter.notifyDataSetChanged();
+            }
+            else if(requestCode == MConstants.REQUEST_WIDGET_ACTIVITY_CHANGE && data != null){
+                int pos = data.getIntExtra("pos",-1);
+                if(pos!=-1) {
+                    widgets.remove(pos);
+                    activityContentAdapter.notifyItemRemoved(pos);
+                }
             }
         }
     }
@@ -416,6 +434,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
                     }
                 });
         menuSheetView.inflateMenu(R.menu.widget_menu);
+        bottomSheetLayout.setShouldDimContentView(false);
         bottomSheetLayout.showWithSheetView(menuSheetView);
     }
     public void createNote() {
@@ -607,5 +626,16 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void changeActivtyOfWidget(int type, String uid, int pos) {
+        Intent intent = new Intent(getContext(),ActivityChoser.class);
+        intent.putExtra("action",MConstants.ACTION_MOVE_WIDGET);
+        intent.putExtra("type",type);
+        intent.putExtra("uid",uid);
+        intent.putExtra("pos",pos);
+        intent.putExtra("aid",activityData.getId());
+        startActivityForResult(intent,MConstants.REQUEST_WIDGET_ACTIVITY_CHANGE);
     }
 }

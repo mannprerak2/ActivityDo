@@ -126,6 +126,12 @@ public class DBHelperText extends SQLiteOpenHelper{
         contentValues.put(HOME_COLUMN_BODY, body);
         db.update(HOME_TABLE_NAME,contentValues,"uid = ?", new String[]{uid});
     }
+    public void updateAid(String uid,String aid){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(HOME_COLUMN_AID, aid);
+        db.update(HOME_TABLE_NAME,contentValues,"uid = ?", new String[]{uid});
+    }
 
     private void insertWidgetForSort(String uid){//call this in every insert method
         new DBHelperWidgets(context).insertWidget(uid,0);

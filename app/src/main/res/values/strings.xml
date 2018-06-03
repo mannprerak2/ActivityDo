@@ -25,4 +25,6 @@
     <string name="quick_note">Take Quick Note</string>
     <string name="list">List</string>
     <string name="image">Image</string>
+    <string name="title_activity_choser">ActivityChoser</string>
+    <string name="move">Move</string>
 </resources>

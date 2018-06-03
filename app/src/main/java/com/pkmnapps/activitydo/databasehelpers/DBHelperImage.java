@@ -68,7 +68,12 @@ public class DBHelperImage extends SQLiteOpenHelper {
         db.insert(HOME_TABLE_NAME, null, contentValues);
         return true;
     }
-
+    public void updateAid(String uid,String aid){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(HOME_COLUMN_AID, aid);
+        db.update(HOME_TABLE_NAME,contentValues,"uid = ?", new String[]{uid});
+    }
     public int deleteImage(String uid){
         deleteWidgetinSort(uid);
         File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),(uid+".jpg"));

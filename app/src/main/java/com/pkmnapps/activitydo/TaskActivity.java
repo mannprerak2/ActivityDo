@@ -184,6 +184,12 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
                 //update ui
                 dbHelperWidgets.updateAllWidgetSortOrders(widgets);
                 activityContentAdapter.notifyDataSetChanged();
+            }else if(requestCode == MConstants.REQUEST_WIDGET_ACTIVITY_CHANGE && data != null){
+                int pos = data.getIntExtra("pos",-1);
+                if(pos!=-1) {
+                    widgets.remove(pos);
+                    activityContentAdapter.notifyItemRemoved(pos);
+                }
             }
         }
     }
@@ -253,6 +259,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
                     }
                 });
         menuSheetView.inflateMenu(R.menu.widget_menu);
+        bottomSheetLayout.setShouldDimContentView(false);
         bottomSheetLayout.showWithSheetView(menuSheetView);
     }
 
@@ -600,6 +607,16 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
             }
         });
         builder.show();
+    }
+    @Override
+    public void changeActivtyOfWidget(int type, String uid, int pos) {
+        Intent intent = new Intent(this,ActivityChoser.class);
+        intent.putExtra("action",MConstants.ACTION_MOVE_WIDGET);
+        intent.putExtra("type",type);
+        intent.putExtra("uid",uid);
+        intent.putExtra("pos",pos);
+        intent.putExtra("aid",activityData.getId());
+        startActivityForResult(intent,MConstants.REQUEST_WIDGET_ACTIVITY_CHANGE);
     }
 
 }

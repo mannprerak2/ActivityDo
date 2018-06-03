@@ -3,41 +3,60 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="4dp">
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-        <ImageButton
-            android:id="@+id/more_button"
-            android:background="@drawable/ic_more_vert_grey_24dp"
-            android:layout_margin="5dp"
-            android:layout_gravity="end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
         <TextView
-            android:maxLines="1"
-            android:ellipsize="end"
             android:id="@+id/head_textView"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/colorGrey"
             android:textStyle="bold"
-            android:layout_height="wrap_content" />
+            card_view:layout_constraintBottom_toTopOf="@+id/recycler_view"
+            card_view:layout_constraintEnd_toStartOf="@+id/more_button"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/more_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ic_more_vert_grey_24dp"
+            card_view:layout_constraintBottom_toTopOf="@+id/recycler_view"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toEndOf="@+id/head_textView"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
 
         <android.support.v7.widget.RecyclerView
-            android:padding="10dp"
             android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:padding="10dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="@+id/head_textView"
+            card_view:layout_constraintTop_toBottomOf="@+id/head_textView" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
 </android.support.v7.widget.CardView>

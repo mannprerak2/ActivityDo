@@ -57,7 +57,11 @@
         <activity
             android:name=".ListActivity"
             android:label="@string/title_activity_list"
-            android:theme="@style/AppTheme.NoActionBar.white"/>
+            android:theme="@style/AppTheme.NoActionBar.white" />
+        <activity
+            android:name=".ActivityChoser"
+            android:label="@string/title_activity_choser"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

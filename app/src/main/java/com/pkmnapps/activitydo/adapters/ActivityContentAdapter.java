@@ -16,6 +16,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.pkmnapps.activitydo.ActivityChoser;
 import com.pkmnapps.activitydo.ImageViewFullscreen;
 import com.pkmnapps.activitydo.MConstants;
 import com.pkmnapps.activitydo.R;
@@ -127,7 +128,10 @@ public class ActivityContentAdapter extends RecyclerView.Adapter{
                                 @Override
                                 public boolean onMenuItemClick(MenuItem item) {
                                     if(item.getItemId()==R.id.action_delete)
-                                        taskActivityInterface.deleteWidget(widgets.get(position));
+                                        taskActivityInterface.deleteWidget(widgets.get(holder.getAdapterPosition()));
+                                    else if(item.getItemId()==R.id.action_change_activity){
+                                        taskActivityInterface.changeActivtyOfWidget(MConstants.textW,t.getUid(),holder.getAdapterPosition());
+                                    }
                                     return true;
                                 }
                             });
@@ -163,7 +167,10 @@ public class ActivityContentAdapter extends RecyclerView.Adapter{
                                 @Override
                                 public boolean onMenuItemClick(MenuItem item) {
                                     if(item.getItemId()==R.id.action_delete)
-                                        taskActivityInterface.deleteWidget(widgets.get(position));
+                                        taskActivityInterface.deleteWidget(widgets.get(holder.getAdapterPosition()));
+                                    else if(item.getItemId()==R.id.action_change_activity){
+                                        taskActivityInterface.changeActivtyOfWidget(MConstants.listW,l.getUid(),holder.getAdapterPosition());
+                                    }
                                     return true;
                                 }
                             });
@@ -196,7 +203,10 @@ public class ActivityContentAdapter extends RecyclerView.Adapter{
                                 @Override
                                 public boolean onMenuItemClick(MenuItem item) {
                                     if(item.getItemId()==R.id.action_delete)
-                                        taskActivityInterface.deleteWidget(widgets.get(position));
+                                        taskActivityInterface.deleteWidget(widgets.get(holder.getAdapterPosition()));
+                                    else if(item.getItemId()==R.id.action_change_activity){
+                                        taskActivityInterface.changeActivtyOfWidget(MConstants.imageW,i.getUid(),holder.getAdapterPosition());
+                                    }
                                     return true;
                                 }
                             });

@@ -6,4 +6,6 @@ public interface TaskActivityInterface {
 
     void editWidget(Widget widget);
     void deleteWidget(Widget widget);
+
+    void changeActivtyOfWidget(int type,String uid, int pos);
 }

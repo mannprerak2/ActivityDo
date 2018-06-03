@@ -19,6 +19,9 @@ public class MConstants {
 
     public static final int REQUEST_NEW_LIST = 4;
 
+    public static final int REQUEST_WIDGET_ACTIVITY_CHANGE = 11;
+
+    public static final int ACTION_MOVE_WIDGET = 10;
 
 }
 

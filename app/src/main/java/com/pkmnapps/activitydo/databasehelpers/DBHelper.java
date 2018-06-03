@@ -78,6 +78,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "id = ? ",
                 new String[] { id });
     }
+
     public List<ActivityData> getAllActivitiesAsList(){
         List<ActivityData> activityDataList = new ArrayList<>();
 
@@ -148,5 +149,6 @@ public class DBHelper extends SQLiteOpenHelper {
             updateSort(a.getId(),activityDataList.indexOf(a));
         }
     }
+
 
 }
