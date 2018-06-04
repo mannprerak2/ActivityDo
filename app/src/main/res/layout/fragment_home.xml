@@ -18,8 +18,8 @@
         android:id="@+id/addNewButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#d7d7d7"
         android:text="@string/add_new_activity"
+        android:textStyle="bold"
         android:textColor="@color/colorAccent" />
 
 </LinearLayout>

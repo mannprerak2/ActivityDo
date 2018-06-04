@@ -142,7 +142,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
 
             @Override
             public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                return makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE,ItemTouchHelper.RIGHT);
+                return makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE,ItemTouchHelper.LEFT);
 
             }
 
@@ -296,7 +296,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
                     //add to database
                     dbHelper.updateActivity(activityData);
                     //update UI
-                    activityAdapter.notifyDataSetChanged();
+                    activityAdapter.notifyItemChanged(activityDataList.indexOf(activityData));
                 }
             }
         });
@@ -321,8 +321,9 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
                 //delete from database
                 new DBHelper(getContext()).deleteActivity(activityData.getId());
                 //delete from list
+                int x = activityDataList.indexOf(activityData);
                 activityDataList.remove(activityData);
-                activityAdapter.notifyDataSetChanged();
+                activityAdapter.notifyItemRemoved(x);
                 //also remove from pinned menu if it exists
                 updatePinnedMenu();
             }
@@ -330,7 +331,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                activityAdapter.notifyDataSetChanged();
+                activityAdapter.notifyItemChanged(activityDataList.indexOf(activityData));
             }
         });
         builder.show();

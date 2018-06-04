@@ -133,7 +133,21 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_parent_main,new TabFragment()).commit();
         }
         else if(id == R.id.nav_share){
-
+            try {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, "Activity Do");
+                String sAux = "\nTry this app 'Activity Do' to note down stuff, organise, plan stuff in your life as Activities\n\n";
+                sAux = sAux + "https://play.google.com/store/apps/details?id=com.pkmnapps.activitydo\n\n";
+                i.putExtra(Intent.EXTRA_TEXT, sAux);
+                startActivity(Intent.createChooser(i, "choose one"));
+            } catch(Exception ignored) {
+            }
+        }
+        else if(id==R.id.nav_rate){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=com.pkmnapps.activitydo"));
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

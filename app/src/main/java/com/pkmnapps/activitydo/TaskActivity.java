@@ -199,7 +199,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
         takeNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createList();
+                createNote();
             }
         });
         ImageButton more = (ImageButton)findViewById(R.id.more_button);
@@ -581,8 +581,9 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //delete from list
+                int x = widgets.indexOf(widget);
                 widgets.remove(widget);
-                activityContentAdapter.notifyDataSetChanged();
+                activityContentAdapter.notifyItemRemoved(x);
                 dbHelperWidgets.updateAllWidgetSortOrders(widgets);
                 //delete rom database
                 switch (widget.getType()){
@@ -603,7 +604,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                activityContentAdapter.notifyDataSetChanged();
+                activityContentAdapter.notifyItemChanged(widgets.indexOf(widget));
             }
         });
         builder.show();

@@ -600,8 +600,9 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //delete from list
+                int x = widgets.indexOf(widget);
                 widgets.remove(widget);
-                activityContentAdapter.notifyDataSetChanged();
+                activityContentAdapter.notifyItemRemoved(x);
                 dbHelperWidgets.updateAllWidgetSortOrders(widgets);
                 //delete rom database
                 switch (widget.getType()){
@@ -622,7 +623,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                activityContentAdapter.notifyDataSetChanged();
+                activityContentAdapter.notifyItemChanged(widgets.indexOf(widget));
             }
         });
         builder.show();
