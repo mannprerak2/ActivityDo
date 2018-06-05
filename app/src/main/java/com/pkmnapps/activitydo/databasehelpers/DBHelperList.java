@@ -81,13 +81,15 @@ public class DBHelperList extends SQLiteOpenHelper {
     }
 
     public ListWidget getListWidget(String lid){
-        ListWidget listWidget;
+        ListWidget listWidget = null;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from  "+HOME_TABLE_NAME +" where uid=?", new String[]{lid});
         res.moveToFirst();
+        if(res.getCount()>0) {
             listWidget = new ListWidget(res.getString(res.getColumnIndex(HOME_COLUMN_UID)),
                     res.getString(res.getColumnIndex(HOME_COLUMN_AID)),
                     res.getString(res.getColumnIndex(HOME_COLUMN_HEAD)));
+        }
         res.close();
         return listWidget;
     }

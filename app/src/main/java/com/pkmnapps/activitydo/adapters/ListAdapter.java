@@ -78,7 +78,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
                 new DBHelperListItems(holder.itemView.getContext()).deleteListItem(listItem.getUid());
                 listItems.remove(listItem);
                 listActivityInterface.deleteListItem(listItem);
-                notifyDataSetChanged();
             }
         });
         holder.content.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -93,6 +92,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
                 }
             }
         });
+        holder.content.requestFocus();
     }
 
     @Override

@@ -77,8 +77,12 @@ public class NoteActivity extends AppCompatActivity {
         body = bodyE.getText().toString();
         DBHelperText dbHelperText = new DBHelperText(NoteActivity.this);
          //save to database
+        if(head.equals("") && body.equals("")){
+            dbHelperText.deleteText(uid);
+        }
+        else {
             dbHelperText.updateHeadBody(uid, head, body);
-
+        }
         super.onPause();
     }
 

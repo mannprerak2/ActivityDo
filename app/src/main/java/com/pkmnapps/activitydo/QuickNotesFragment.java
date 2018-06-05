@@ -242,10 +242,15 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
 
                 int index = data.getIntExtra("index",-1000);
                 if(index==-1000) {//new list
-                    widgets.add(0,new Widget(MConstants.listW, listWidget,lid,0));
+                    if(listWidget!=null)
+                        widgets.add(0,new Widget(MConstants.listW, listWidget,lid,0));
                 }
                 else {//more list
-                    widgets.set(index, new Widget(MConstants.listW, listWidget,lid,index));
+                    if(listWidget!=null)
+                        widgets.set(index, new Widget(MConstants.listW, listWidget,lid,index));
+                    else {
+                        widgets.remove(index);
+                    }
                 }
                 //update ui
                 dbHelperWidgets.updateAllWidgetSortOrders(widgets);

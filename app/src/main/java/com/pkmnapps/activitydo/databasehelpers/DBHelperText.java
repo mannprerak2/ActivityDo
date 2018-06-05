@@ -80,14 +80,16 @@ public class DBHelperText extends SQLiteOpenHelper{
                 new String[] { aid });
     }
     public SimpleTextWidget getTextWidget(String uid){
-        SimpleTextWidget s;
+        SimpleTextWidget s = null;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from  "+HOME_TABLE_NAME +" where uid=?", new String[]{uid});
         res.moveToFirst();
+        if(res.getCount()!=0) {
             s = new SimpleTextWidget(res.getString(res.getColumnIndex(HOME_COLUMN_UID)),
                     res.getString(res.getColumnIndex(HOME_COLUMN_AID)),
                     res.getString(res.getColumnIndex(HOME_COLUMN_HEAD)),
                     res.getString(res.getColumnIndex(HOME_COLUMN_BODY)));
+        }
         res.close();
         return s;
     }

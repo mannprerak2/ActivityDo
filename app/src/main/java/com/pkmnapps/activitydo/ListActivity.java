@@ -69,7 +69,6 @@ public class ListActivity extends AppCompatActivity implements ListActivityInter
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
-        //recyclerView.setItemViewCacheSize(100);
         recyclerView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -81,9 +80,7 @@ public class ListActivity extends AppCompatActivity implements ListActivityInter
 
         listAdapter = new ListAdapter(listItems, ListActivity.this);
         recyclerView.setAdapter(listAdapter);
-
-
-
+        
         setResult(Activity.RESULT_OK,data);
     }
 
@@ -133,20 +130,26 @@ public class ListActivity extends AppCompatActivity implements ListActivityInter
         //save data on pause activity
         head = headE.getText().toString();
 
-        new DBHelperList(ListActivity.this).updateHead(lid,head);
+        DBHelperList dbHelperList = new DBHelperList(ListActivity.this);
+        dbHelperList.updateHead(lid,head);
         DBHelperListItems dbHelperListItems = new DBHelperListItems(ListActivity.this);
         //save listitems
+        if(listItems.size()>0) {
             for (ListItem listItem : listItems) {
-                if (dbHelperListItems.updateActivity(listItem)==0)
+                if (dbHelperListItems.updateActivity(listItem) == 0)
                     dbHelperListItems.insertListItem(listItem);
             }
-
+        }else {
+            if(head.equals(""))
+                dbHelperList.deleteList(lid);
+        }
         super.onPause();
     }
 
     @Override
     public void deleteListItem(ListItem listItem) {
         listItems.remove(listItem);
+        listAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -154,7 +157,7 @@ public class ListActivity extends AppCompatActivity implements ListActivityInter
         //save previous list first
 
         listItems.add(new ListItem(String.valueOf(System.currentTimeMillis()), lid,"",false));
-        listAdapter.notifyDataSetChanged();
+        listAdapter.notifyItemInserted(listItems.size() - 1);
     }
 
     public void loadData(){
