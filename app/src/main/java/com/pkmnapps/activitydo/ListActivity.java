@@ -18,6 +18,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pkmnapps.activitydo.adapters.ListAdapter;
 import com.pkmnapps.activitydo.custominterfaces.ListActivityInterface;
 import com.pkmnapps.activitydo.databasehelpers.DBHelperList;
@@ -36,7 +37,7 @@ public class ListActivity extends AppCompatActivity implements ListActivityInter
     List<ListItem> listItems;
     ListAdapter listAdapter;
     RecyclerView recyclerView;
-
+    FirebaseAnalytics firebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,8 +81,9 @@ public class ListActivity extends AppCompatActivity implements ListActivityInter
 
         listAdapter = new ListAdapter(listItems, ListActivity.this);
         recyclerView.setAdapter(listAdapter);
-        
+
         setResult(Activity.RESULT_OK,data);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     @Override

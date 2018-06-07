@@ -39,6 +39,7 @@ import com.bumptech.glide.Glide;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.commons.ImagePickerSheetView;
 import com.flipboard.bottomsheet.commons.MenuSheetView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pkmnapps.activitydo.adapters.ActivityContentAdapter;
 import com.pkmnapps.activitydo.custominterfaces.TaskActivityInterface;
 import com.pkmnapps.activitydo.databasehelpers.DBHelper;
@@ -71,6 +72,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
     Uri cameraImageUri = null;
     String tempUid;
     DBHelperWidgets dbHelperWidgets;
+    private FirebaseAnalytics mFirebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +94,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
         setUpJumpControls();
         setUpRecyclerView();
         initialiseRecyclerViewData();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     @Override

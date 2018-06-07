@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pkmnapps.activitydo.databasehelpers.DBHelperText;
 import com.pkmnapps.activitydo.dataclasses.SimpleTextWidget;
 
@@ -21,6 +22,7 @@ public class NoteActivity extends AppCompatActivity {
     String uid,head,body;
     EditText headE,bodyE;
     Intent data;
+    private FirebaseAnalytics firebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,7 @@ public class NoteActivity extends AppCompatActivity {
         bodyE.setText(body);
 
         setResult(Activity.RESULT_OK,data);
-
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     @Override

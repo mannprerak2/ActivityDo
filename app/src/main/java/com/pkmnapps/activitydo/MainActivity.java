@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pkmnapps.activitydo.databasehelpers.DBHelper;
 import com.pkmnapps.activitydo.dataclasses.ActivityData;
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity
         TabFragment.OnFragmentInteractionListener,
         HomeFragment.OnFragmentInteractionListener,
         QuickNotesFragment.OnFragmentInteractionListener
-{
+{   private FirebaseAnalytics mFirebaseAnalytics;
     boolean home = true;
     NavigationView navigationView;
     @Override
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_parent_main,new TabFragment(),"back").commit();
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     public void menuAddPinned(){
