@@ -96,11 +96,11 @@ public class DBHelperListItems extends SQLiteOpenHelper {
         res.close();
         return listItems;
     }
-    public List<ListItem> get3ListItemsAsList(String lid){
+    public List<ListItem> get8ListItemsAsList(String lid){
         List<ListItem> listItems = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from  "+HOME_TABLE_NAME +" where lid=? LIMIT 3", new String[]{lid});
+        Cursor res =  db.rawQuery( "select * from  "+HOME_TABLE_NAME +" where lid=? LIMIT 8", new String[]{lid});
         res.moveToFirst();
 
         ListItem a;

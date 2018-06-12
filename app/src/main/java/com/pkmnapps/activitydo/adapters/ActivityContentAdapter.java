@@ -16,7 +16,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.pkmnapps.activitydo.ActivityChoser;
 import com.pkmnapps.activitydo.ImageViewFullscreen;
 import com.pkmnapps.activitydo.MConstants;
 import com.pkmnapps.activitydo.R;
@@ -27,7 +26,6 @@ import com.pkmnapps.activitydo.dataclasses.ListWidget;
 import com.pkmnapps.activitydo.dataclasses.SimpleTextWidget;
 import com.pkmnapps.activitydo.dataclasses.Widget;
 
-import java.security.PublicKey;
 import java.util.List;
 
 public class ActivityContentAdapter extends RecyclerView.Adapter{
@@ -148,7 +146,7 @@ public class ActivityContentAdapter extends RecyclerView.Adapter{
                     ((MyListViewHolder)holder).recyclerView.setNestedScrollingEnabled(false);
                             ((MyListViewHolder)holder).recyclerView
                             .setAdapter(new InViewListAdapter(new DBHelperListItems(((MyListViewHolder)holder).itemView.getContext())
-                                    .get3ListItemsAsList(l.getUid())));
+                                    .get8ListItemsAsList(l.getUid())));
                     ((MyListViewHolder)holder).recyclerView.setLayoutFrozen(true);
 
                     ((MyListViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {

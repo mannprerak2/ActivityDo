@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,10 +19,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pkmnapps.activitydo.databasehelpers.DBHelper;
+import com.pkmnapps.activitydo.databasehelpers.DBHelperImage;
+import com.pkmnapps.activitydo.databasehelpers.DBHelperText;
+import com.pkmnapps.activitydo.databasehelpers.DBHelperWidgets;
 import com.pkmnapps.activitydo.dataclasses.ActivityData;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 
 public class MainActivity extends AppCompatActivity
@@ -38,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        receiveIntentForAction();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -58,7 +69,63 @@ public class MainActivity extends AppCompatActivity
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
+    private void receiveIntentForAction(){
+        // Get intent, action and MIME type
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
 
+        if(Intent.ACTION_SEND.equals(action) && type!=null){
+            if("text/plain".equals(type)){
+                handleRecievedText(intent);
+            }else if (type.startsWith("image/")) {
+                handleRecievedImage(intent); // Handle single image being sent
+            }
+            else{
+                Toast.makeText(this,"Sorry, An Error Occured",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    void handleRecievedText(Intent intent){
+        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        String titleText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        if (sharedText != null) {
+            //add to database
+            String uid = String.valueOf(System.currentTimeMillis());
+            new DBHelperText(this).insertText(uid,"0",titleText,sharedText);
+            new DBHelperWidgets(this).insertWidget(uid,0);
+            Toast.makeText(this,"Saved successfully",Toast.LENGTH_SHORT).show();
+        }
+    }
+    void handleRecievedImage(Intent intent){
+        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        if (imageUri != null) {
+            String uid = String.valueOf(System.currentTimeMillis());
+            try {
+                File file = createImageFile(uid);
+                InputStream input = getContentResolver().openInputStream(imageUri);
+                try (OutputStream output = new FileOutputStream(file)) {
+                    byte[] buffer = new byte[4 * 1024]; // or other buffer size
+                    int read;
+                    while ((read = input.read(buffer)) != -1) {
+                        output.write(buffer, 0, read);
+                    }
+                    output.flush();
+                }
+                new DBHelperImage(this).insertImage(uid,"0",Uri.fromFile(file).toString());
+                new DBHelperWidgets(this).insertWidget(uid,0);
+                Toast.makeText(this,"Saved successfully",Toast.LENGTH_SHORT).show();
+            }catch (Exception ignored){
+                Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
+    private File createImageFile(String tempUid) {
+        // Create an image file name
+        String imageFileName = tempUid + ".jpg";
+        return new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),imageFileName);
+    }
     public void menuAddPinned(){
         //add items to nav menu
         Menu menu = navigationView.getMenu();

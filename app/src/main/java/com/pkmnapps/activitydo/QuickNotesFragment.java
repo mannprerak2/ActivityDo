@@ -47,6 +47,9 @@ import com.pkmnapps.activitydo.dataclasses.SimpleTextWidget;
 import com.pkmnapps.activitydo.dataclasses.Widget;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -197,7 +200,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
             if (requestCode == REQUEST_LOAD_IMAGE && data != null) { //image from gallery
                 selectedImage = data.getData();
                 if (selectedImage != null) {
-                    addImageWidget(selectedImage);
+                    saveImageAddWidget(selectedImage);
                 } else {
                     genericError();
                 }
@@ -404,6 +407,13 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
                     widgets.set(j,widgets.get(j+1));
                     widgets.set(j+1,temp);
                     swap = true;
+                }else if(widgets.get(j).getSortOrder()==widgets.get(j+1).getSortOrder()){
+                    if(Long.parseLong(widgets.get(j).getUid())< Long.parseLong(widgets.get(j+1).getUid())) {
+                        Widget temp = widgets.get(j);
+                        widgets.set(j, widgets.get(j + 1));
+                        widgets.set(j + 1, temp);
+                        swap = true;
+                    }
                 }
             }
             if(!swap)
@@ -482,7 +492,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
                             startActivityForResult(createPickIntent(), REQUEST_LOAD_IMAGE);
                         } else if (selectedTile.isImageTile()) {
                             if(selectedTile.getImageUri()!=null)
-                                addImageWidget(selectedTile.getImageUri());
+                                saveImageAddWidget(selectedTile.getImageUri());
                         } else {
                             genericError();
                         }
@@ -520,6 +530,40 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
         activityContentAdapter.notifyDataSetChanged();
     }
 
+    private void saveImageAddWidget(Uri selectedImageUri){
+        if (selectedImageUri != null) {
+            try {
+                File file = createImageFile();
+                InputStream input = getContext().getContentResolver().openInputStream(selectedImageUri);
+                try (OutputStream output = new FileOutputStream(file)) {
+                    byte[] buffer = new byte[4 * 1024]; // or other buffer size
+                    int read;
+                    while ((read = input.read(buffer)) != -1) {
+                        output.write(buffer, 0, read);
+                    }
+                    output.flush();
+                }
+                //save image uri to image database
+                ImageWidget imageWidget = new ImageWidget(tempUid,activityData.getId(),Uri.fromFile(file).toString());
+                DBHelperImage dbHelperImage = new DBHelperImage(getContext());
+                dbHelperImage.insertImage(imageWidget);
+
+                //show in widgets
+                widgets.add(0,new Widget(MConstants.imageW,imageWidget,tempUid,0));
+                //update UI
+                dbHelperWidgets.updateAllWidgetSortOrders(widgets);
+                activityContentAdapter.notifyDataSetChanged();
+            }catch (Exception ignored){
+                Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+    private File createImageFile(String tempUid) {
+        // Create an image file name
+        String imageFileName = tempUid + ".jpg";
+        return new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),imageFileName);
+    }
     @Nullable
     private Intent createPickIntent() {
         Intent picImageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
