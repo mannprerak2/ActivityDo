@@ -11,11 +11,10 @@ Plan and Organise notes as activities...
 * Share notes
 
 ### Screenshots
-<img src="./screenshots/list-edit.jpg" width="180"/>
-<img src="./screenshots/activity-preview.jpg" width="180"/>
-<img src="./screenshots/create-activity.jpg" width="180"/>
-<img src="./screenshots/home-activities.jpg" width="180"/>
-<img src="./screenshots/home-quicknotes.jpg" width="180"/>
+
+|<img src="./screenshots/list-edit.jpg" width="200"/>|<img src="./screenshots/activity-preview.jpg" width="200"/>|<img src="./screenshots/create-activity.jpg" width="200"/>
+---
+|<img src="./screenshots/home-activities.jpg" width="200"/>|<img src="./screenshots/home-quicknotes.jpg" width="200"/>
 
 ### Notes
 * Notes can be
