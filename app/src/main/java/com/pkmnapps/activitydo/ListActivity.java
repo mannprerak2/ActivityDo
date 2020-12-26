@@ -3,18 +3,17 @@ package com.pkmnapps.activitydo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,7 +23,6 @@ import com.pkmnapps.activitydo.custominterfaces.ListActivityInterface;
 import com.pkmnapps.activitydo.databasehelpers.DBHelperList;
 import com.pkmnapps.activitydo.databasehelpers.DBHelperListItems;
 import com.pkmnapps.activitydo.dataclasses.ListItem;
-import com.pkmnapps.activitydo.dataclasses.ListWidget;
 
 import java.util.ArrayList;
 import java.util.List;

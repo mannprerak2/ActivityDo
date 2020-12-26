@@ -31,7 +31,7 @@
             android:textColor="@color/colorTextAddBox"
             android:layout_height="wrap_content" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:padding="5dp"
         android:layout_gravity="bottom"
         android:id="@+id/recycler_view"

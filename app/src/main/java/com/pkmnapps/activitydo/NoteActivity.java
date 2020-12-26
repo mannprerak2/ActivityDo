@@ -3,20 +3,16 @@ package com.pkmnapps.activitydo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pkmnapps.activitydo.databasehelpers.DBHelperText;
-import com.pkmnapps.activitydo.dataclasses.SimpleTextWidget;
 
 public class NoteActivity extends AppCompatActivity {
     String uid,head,body;

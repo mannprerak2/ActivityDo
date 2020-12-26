@@ -1,26 +1,20 @@
 package com.pkmnapps.activitydo.adapters;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.pkmnapps.activitydo.R;
-import com.pkmnapps.activitydo.TaskActivity;
 import com.pkmnapps.activitydo.custominterfaces.ChangeActivityInterface;
-import com.pkmnapps.activitydo.custominterfaces.HomeFragInterace;
-import com.pkmnapps.activitydo.databasehelpers.DBHelper;
 import com.pkmnapps.activitydo.dataclasses.ActivityData;
 
 import java.util.List;
