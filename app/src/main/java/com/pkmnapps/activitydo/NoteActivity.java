@@ -14,32 +14,34 @@ import android.widget.EditText;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pkmnapps.activitydo.databasehelpers.DBHelperText;
 
+import java.util.Objects;
+
 public class NoteActivity extends AppCompatActivity {
     String uid,head,body;
     EditText headE,bodyE;
     Intent data;
-    private FirebaseAnalytics firebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         uid = getIntent().getStringExtra("uid");
         head = getIntent().getStringExtra("head");
         body = getIntent().getStringExtra("body");
         data = getIntent();
 
-        headE = (EditText)findViewById(R.id.note_head_editText);
-        bodyE = (EditText)findViewById(R.id.note_body_editText);
+        headE = findViewById(R.id.note_head_editText);
+        bodyE = findViewById(R.id.note_body_editText);
         headE.setText(head);
         bodyE.setText(body);
 
         setResult(Activity.RESULT_OK,data);
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     @Override

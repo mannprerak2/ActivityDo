@@ -15,15 +15,15 @@ import java.util.List;
 
 public class InViewListAdapter extends RecyclerView.Adapter<InViewListAdapter.MyViewHolder> {
 
-    private List<ListItem> listItems;
+    private final List<ListItem> listItems;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public CheckBox checkBox;
-        public TextView textView;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        public final CheckBox checkBox;
+        public final TextView textView;
         public MyViewHolder(View view) {
             super(view);
-            checkBox = (CheckBox)view.findViewById(R.id.checkBox);
-            textView = (TextView)view.findViewById(R.id.contentTextView);
+            checkBox = view.findViewById(R.id.checkBox);
+            textView = view.findViewById(R.id.contentTextView);
         }
     }
 
@@ -37,7 +37,7 @@ public class InViewListAdapter extends RecyclerView.Adapter<InViewListAdapter.My
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_in_view_list_view, parent, false);
 
-        return new InViewListAdapter.MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
     @Override

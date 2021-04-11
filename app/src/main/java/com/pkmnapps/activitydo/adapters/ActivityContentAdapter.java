@@ -30,43 +30,44 @@ import java.util.List;
 
 public class ActivityContentAdapter extends RecyclerView.Adapter{
 
-    List<Widget> widgets;
-    TaskActivityInterface taskActivityInterface;
-    public class MyTextViewHolder extends RecyclerView.ViewHolder {
-        public TextView head,body;
-        public ImageButton more;
+    final List<Widget> widgets;
+    final TaskActivityInterface taskActivityInterface;
+    public static class MyTextViewHolder extends RecyclerView.ViewHolder {
+        public final TextView head;
+        public final TextView body;
+        public final ImageButton more;
         public MyTextViewHolder(View view) {
             super(view);
-            head = (TextView)view.findViewById(R.id.head_textView);
-            body = (TextView)view.findViewById(R.id.body_textView);
-            more = (ImageButton)view.findViewById(R.id.more_button);
+            head = view.findViewById(R.id.head_textView);
+            body = view.findViewById(R.id.body_textView);
+            more = view.findViewById(R.id.more_button);
         }
     }
-    public class MyListViewHolder extends RecyclerView.ViewHolder {
-        public TextView head;
-        public RecyclerView recyclerView;
-        public ImageButton more;
+    public static class MyListViewHolder extends RecyclerView.ViewHolder {
+        public final TextView head;
+        public final RecyclerView recyclerView;
+        public final ImageButton more;
 
         public MyListViewHolder(View view) {
             super(view);
-            head = (TextView)view.findViewById(R.id.head_textView);
-            recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
-            more = (ImageButton)view.findViewById(R.id.more_button);
+            head = view.findViewById(R.id.head_textView);
+            recyclerView = view.findViewById(R.id.recycler_view);
+            more = view.findViewById(R.id.more_button);
 
         }
     }
-    public class MyImageViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
-        public ImageButton more;
+    public static class MyImageViewHolder extends RecyclerView.ViewHolder {
+        public final ImageView imageView;
+        public final ImageButton more;
 
         public MyImageViewHolder(View view) {
             super(view);
-            imageView = (ImageView)view.findViewById(R.id.widget_imageView);
-            more = (ImageButton)view.findViewById(R.id.more_button);
+            imageView = view.findViewById(R.id.widget_imageView);
+            more = view.findViewById(R.id.more_button);
 
         }
     }
-    public class MyAudioViewHolder extends RecyclerView.ViewHolder {
+    public static class MyAudioViewHolder extends RecyclerView.ViewHolder {
 
         public MyAudioViewHolder(View view) {
             super(view);
@@ -94,7 +95,6 @@ public class ActivityContentAdapter extends RecyclerView.Adapter{
                 v = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_widget_view, parent, false);
                 return new MyImageViewHolder(v);
             case MConstants.audioW:
-                return null;
             default:
                 return null;
         }
@@ -147,7 +147,7 @@ public class ActivityContentAdapter extends RecyclerView.Adapter{
                             ((MyListViewHolder)holder).recyclerView
                             .setAdapter(new InViewListAdapter(new DBHelperListItems(((MyListViewHolder)holder).itemView.getContext())
                                     .get8ListItemsAsList(l.getUid())));
-                    ((MyListViewHolder)holder).recyclerView.setLayoutFrozen(true);
+                    ((MyListViewHolder)holder).recyclerView.suppressLayout(true);
 
                     ((MyListViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                         @Override

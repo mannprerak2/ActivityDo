@@ -21,6 +21,7 @@ import com.pkmnapps.activitydo.dataclasses.ActivityData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ActivityChoser extends AppCompatActivity implements ChangeActivityInterface{
     RecyclerView recyclerView;
@@ -32,9 +33,9 @@ public class ActivityChoser extends AppCompatActivity implements ChangeActivityI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choser);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
         int action = getIntent().getIntExtra("action",-1);
@@ -57,6 +58,7 @@ public class ActivityChoser extends AppCompatActivity implements ChangeActivityI
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (item.getItemId()) {
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
@@ -67,7 +69,7 @@ public class ActivityChoser extends AppCompatActivity implements ChangeActivityI
         }
     }
     private void initialiseRecyclerview(){
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

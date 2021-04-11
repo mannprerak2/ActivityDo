@@ -34,6 +34,7 @@ public class ImageProvider extends ContentProvider {
 
             if(!mFile.exists()) {
 
+                //noinspection ResultOfMethodCallIgnored
                 mFile.createNewFile();
 
             }

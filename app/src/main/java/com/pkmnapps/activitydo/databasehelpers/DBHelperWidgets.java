@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.pkmnapps.activitydo.dataclasses.Widget;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DBHelperWidgets extends SQLiteOpenHelper {
@@ -19,7 +18,7 @@ public class DBHelperWidgets extends SQLiteOpenHelper {
     public static final String HOME_COLUMN_ID = "id";
     public static final String HOME_COLUMN_UID = "uid";//uniqueid
     public static final String HOME_COLUMN_SORT = "sort";//order
-    Context context;
+    final Context context;
     public DBHelperWidgets(Context context) {
         super(context, DATABASE_NAME , null, 1);
         this.context = context;

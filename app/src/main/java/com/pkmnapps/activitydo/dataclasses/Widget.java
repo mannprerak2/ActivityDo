@@ -1,12 +1,8 @@
 package com.pkmnapps.activitydo.dataclasses;
 
-import android.content.Context;
-
-import com.pkmnapps.activitydo.databasehelpers.DBHelperWidgets;
-
 public class Widget {
-    int type;
-    Object object;
+    final int type;
+    final Object object;
     int sortOrder;
     String uid;
     public Widget(int type, Object object, String uid, int sortOrder) {

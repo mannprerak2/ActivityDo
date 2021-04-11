@@ -118,7 +118,7 @@ public class ImageViewFullscreen extends AppCompatActivity {
         // created, to briefly hint to the user that UI controls
         // are available.
         if(AUTO_HIDE)
-            delayedHide(100);
+            delayedHide();
     }
 
     private void toggle() {
@@ -159,9 +159,9 @@ public class ImageViewFullscreen extends AppCompatActivity {
      * Schedules a call to hide() in delay milliseconds, canceling any
      * previously scheduled calls.
      */
-    private void delayedHide(int delayMillis) {
+    private void delayedHide() {
         mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+        mHideHandler.postDelayed(mHideRunnable, 100);
     }
 
 

@@ -1,10 +1,5 @@
 package com.pkmnapps.activitydo.dataclasses;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
-
-import java.util.Date;
-
 public class ActivityData {
     private String name,id;
     private String color;

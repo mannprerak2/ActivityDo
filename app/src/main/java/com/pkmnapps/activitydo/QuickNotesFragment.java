@@ -18,7 +18,6 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,6 +52,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static com.pkmnapps.activitydo.MConstants.REQUEST_LOAD_IMAGE;
 import static com.pkmnapps.activitydo.MConstants.REQUEST_STORAGE;
@@ -85,10 +85,6 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
 
     public QuickNotesFragment() {
@@ -117,8 +113,9 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -132,7 +129,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
 
         dbHelperWidgets = new DBHelperWidgets(getContext());
 
-        bottomSheetLayout = (BottomSheetLayout)view.findViewById(R.id.bottomsheet);
+        bottomSheetLayout = view.findViewById(R.id.bottomsheet);
         setUpJumpControls();
         setUpRecyclerView();
         initialiseRecyclerViewData();
@@ -196,7 +193,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
         Log.w("n",String.valueOf(requestCode));
         Log.w("n",String.valueOf(resultCode));
         if (resultCode == Activity.RESULT_OK) {
-            Uri selectedImage = null;
+            Uri selectedImage;
             if (requestCode == REQUEST_LOAD_IMAGE && data != null) { //image from gallery
                 selectedImage = data.getData();
                 if (selectedImage != null) {
@@ -271,28 +268,28 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
 
 
     private void setUpJumpControls(){
-        TextView takeNote = (TextView)view.findViewById(R.id.note_tvbutton);
+        TextView takeNote = view.findViewById(R.id.note_tvbutton);
         takeNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createNote();
             }
         });
-        ImageButton more = (ImageButton)view.findViewById(R.id.more_button);
+        ImageButton more = view.findViewById(R.id.more_button);
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 displayWidgetChoser();
             }
         });
-        ImageButton list = (ImageButton)view.findViewById(R.id.list_button);
+        ImageButton list = view.findViewById(R.id.list_button);
         list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createList();
             }
         });
-        ImageButton image = (ImageButton)view.findViewById(R.id.image_button);
+        ImageButton image = view.findViewById(R.id.image_button);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -305,7 +302,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
         });
     }
     public void setUpRecyclerView(){
-        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -423,7 +420,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
     public void displayWidgetChoser(){
         //show bottomsheet
         MenuSheetView menuSheetView =
-                new MenuSheetView(getContext(), MenuSheetView.MenuType.LIST, "Chose widget", new MenuSheetView.OnMenuItemClickListener() {
+                new MenuSheetView(Objects.requireNonNull(getContext()), MenuSheetView.MenuType.LIST, "Chose widget", new MenuSheetView.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (bottomSheetLayout.isSheetShowing()) {
@@ -469,14 +466,14 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
         startActivityForResult(intent,MConstants.REQUEST_NEW_LIST);
     }
     public void createImageSheet() {
-        ImagePickerSheetView sheetView = new ImagePickerSheetView.Builder(getContext())
+        ImagePickerSheetView sheetView = new ImagePickerSheetView.Builder(Objects.requireNonNull(getContext()))
                 .setMaxItems(30)
                 .setShowCameraOption(createCameraIntent() != null)
                 .setShowPickerOption(createPickIntent() != null)
                 .setImageProvider(new ImagePickerSheetView.ImageProvider() {
                     @Override
                     public void onProvideImage(ImageView imageView, Uri imageUri, int size) {//feeds image to sheet views
-                        Glide.with(getContext())
+                        Glide.with(Objects.requireNonNull(getContext()))
                                 .load(imageUri)
                                 .into(imageView);
                     }
@@ -505,11 +502,11 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
     }
 
     private boolean checkNeedsPermission() {
-        return ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
+        return ActivityCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(Objects.requireNonNull(getActivity()), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE);
         } else {
             // Eh, prompt anyway
@@ -534,7 +531,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
         if (selectedImageUri != null) {
             try {
                 File file = createImageFile();
-                InputStream input = getContext().getContentResolver().openInputStream(selectedImageUri);
+                InputStream input = Objects.requireNonNull(getContext()).getContentResolver().openInputStream(selectedImageUri);
                 try (OutputStream output = new FileOutputStream(file)) {
                     byte[] buffer = new byte[4 * 1024]; // or other buffer size
                     int read;
@@ -562,12 +559,12 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
     private File createImageFile(String tempUid) {
         // Create an image file name
         String imageFileName = tempUid + ".jpg";
-        return new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),imageFileName);
+        return new File(Objects.requireNonNull(getContext()).getExternalFilesDir(Environment.DIRECTORY_PICTURES),imageFileName);
     }
     @Nullable
     private Intent createPickIntent() {
         Intent picImageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        if (picImageIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+        if (picImageIntent.resolveActivity(Objects.requireNonNull(getActivity()).getPackageManager()) != null) {
             return picImageIntent;
         } else {
             return null;
@@ -576,7 +573,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
     @Nullable
     private Intent createCameraIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(Objects.requireNonNull(getActivity()).getPackageManager()) != null) {
             return takePictureIntent;
         } else {
             return null;
@@ -590,7 +587,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
             try {
                 File imageFile = createImageFile();
                 // Save a file: path for use with ACTION_VIEW intents
-                cameraImageUri = FileProvider.getUriForFile(getContext(),"com.pkmnapps.activitydo.fileprovider",imageFile);
+                cameraImageUri = FileProvider.getUriForFile(Objects.requireNonNull(getContext()),"com.pkmnapps.activitydo.fileprovider",imageFile);
 
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
                 startActivityForResult(takePictureIntent, MConstants.REQUEST_IMAGE_CAPTURE);
@@ -612,7 +609,7 @@ public class QuickNotesFragment extends Fragment implements TaskActivityInterfac
     private File createImageFile() {
         // Create an image file name
         String imageFileName = tempUid + ".jpg";
-        return new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),imageFileName);
+        return new File(Objects.requireNonNull(getContext()).getExternalFilesDir(Environment.DIRECTORY_PICTURES),imageFileName);
     }
 
     @Override

@@ -20,18 +20,18 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
 
-    private List<ListItem> listItems;
-    ListActivityInterface listActivityInterface;
+    private final List<ListItem> listItems;
+    final ListActivityInterface listActivityInterface;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public EditText content;
-        public CheckBox checked;
-        public ImageButton delete;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        public final EditText content;
+        public final CheckBox checked;
+        public final ImageButton delete;
         public MyViewHolder(View view) {
             super(view);
-            content = (EditText) view.findViewById(R.id.contentEditText);
-            checked = (CheckBox)view.findViewById(R.id.checkbox);
-            delete = (ImageButton)view.findViewById(R.id.deleteButton);
+            content = view.findViewById(R.id.contentEditText);
+            checked = view.findViewById(R.id.checkbox);
+            delete = view.findViewById(R.id.deleteButton);
         }
     }
 
@@ -46,7 +46,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_listitem_layout, parent, false);
 
-        return new ListAdapter.MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
     @Override
@@ -58,10 +58,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
         holder.checked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(holder.checked.isChecked())
-                    listItem.setChecked(true);
-                else
-                    listItem.setChecked(false);
+                listItem.setChecked(holder.checked.isChecked());
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {

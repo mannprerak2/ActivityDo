@@ -5,16 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
 import android.os.Environment;
 
-import com.bumptech.glide.Glide;
-import com.pkmnapps.activitydo.TaskActivity;
 import com.pkmnapps.activitydo.dataclasses.ImageWidget;
-import com.pkmnapps.activitydo.dataclasses.SimpleTextWidget;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +22,7 @@ public class DBHelperImage extends SQLiteOpenHelper {
     public static final String HOME_COLUMN_AID = "aid";//activityid
     public static final String HOME_COLUMN_UID = "uid";//uniqueid
     public static final String HOME_COLUMN_URI = "uri";
-    Context context;
+    final Context context;
     public DBHelperImage(Context context) {
         super(context, DATABASE_NAME , null, 1);
         this.context = context;

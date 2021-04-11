@@ -1,7 +1,7 @@
 package com.pkmnapps.activitydo;
 
 public class MConstants {
-    public static String[] colors = {"#3f79b4","#50933c","#afaf41","#af4541","#673a9e"};
+    public static final String[] colors = {"#3f79b4","#50933c","#afaf41","#af4541","#673a9e"};
 
     public static String selectColor = "#32000000";
 

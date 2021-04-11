@@ -21,20 +21,20 @@ import java.util.List;
 
 public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAdapter.MyViewHolder> {
 
-    private List<ActivityData> activityDataList;
-    private ChangeActivityInterface changeActivityInterface;
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name;
-        public CheckBox pinned;
-        public ImageButton more;
-        public ImageView label;
+    private final List<ActivityData> activityDataList;
+    private final ChangeActivityInterface changeActivityInterface;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        public final TextView name;
+        public final CheckBox pinned;
+        public final ImageButton more;
+        public final ImageView label;
 
         public MyViewHolder(View view) {
             super(view);
-            name = (TextView)view.findViewById(R.id.nameTextView);
-            pinned = (CheckBox)view.findViewById(R.id.pinCheckBox);
-            label = (ImageView) view.findViewById(R.id.colorView);
-            more = (ImageButton)view.findViewById(R.id.more_button);
+            name = view.findViewById(R.id.nameTextView);
+            pinned = view.findViewById(R.id.pinCheckBox);
+            label = view.findViewById(R.id.colorView);
+            more = view.findViewById(R.id.more_button);
         }
     }
 
@@ -49,7 +49,7 @@ public class SimpleActivityAdapter extends RecyclerView.Adapter<SimpleActivityAd
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_activity_layout, parent, false);
 
-        return new SimpleActivityAdapter.MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
     @Override

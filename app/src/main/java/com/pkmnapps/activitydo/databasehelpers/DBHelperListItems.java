@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.pkmnapps.activitydo.dataclasses.ListItem;
-import com.pkmnapps.activitydo.dataclasses.ListWidget;
 
 import java.util.ArrayList;
 import java.util.List;

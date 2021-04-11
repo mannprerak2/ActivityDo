@@ -29,6 +29,7 @@ import com.pkmnapps.activitydo.dataclasses.ActivityData;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -54,10 +55,6 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -87,8 +84,9 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -98,12 +96,12 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        getActivity().setTitle("Home");
+        Objects.requireNonNull(getActivity()).setTitle("Home");
 
         activityDataList = new ArrayList<>();
         activityAdapter = new ActivityAdapter(activityDataList,HomeFragment.this);
 
-        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -161,7 +159,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itcallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
         itemTouchHelperSwipe.attachToRecyclerView(recyclerView);
-        Button addNewButton = (Button)view.findViewById(R.id.addNewButton);
+        Button addNewButton = view.findViewById(R.id.addNewButton);
         addNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -173,7 +171,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
 
                 changeColorTheme(new Random().nextInt(MConstants.colors.length));//gives random number from 0 to max(excluding)
 
-                final RecyclerView recyclerView = (RecyclerView)dialogView.findViewById(R.id.recycler_view);
+                final RecyclerView recyclerView = dialogView.findViewById(R.id.recycler_view);
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
                 recyclerView.setLayoutManager(mLayoutManager);
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -186,7 +184,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
                     public void onClick(DialogInterface dialog, int which) {
                         String id,name,color;
                         //add to list
-                        EditText nameEdiText = (EditText)dialogView.findViewById(R.id.nameEditText);
+                        EditText nameEdiText = dialogView.findViewById(R.id.nameEditText);
 
                         id = String.valueOf(System.currentTimeMillis());
                         name = nameEdiText.getText().toString();
@@ -270,7 +268,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
 
         changeColorTheme(activityData.getColor());
 
-        RecyclerView recyclerView = (RecyclerView)dialogView.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = dialogView.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -278,7 +276,7 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
 
         recyclerView.setAdapter(new ColorThemeAdapter(HomeFragment.this));
 
-        final EditText nameEdiText = (EditText)dialogView.findViewById(R.id.nameEditText);
+        final EditText nameEdiText = dialogView.findViewById(R.id.nameEditText);
 
         nameEdiText.setText(activityData.getName());
 
@@ -350,6 +348,6 @@ public class HomeFragment extends Fragment implements HomeFragInterace{
     }
 
     public void updatePinnedMenu(){
-        ((MainActivity)getActivity()).menuAddPinned();
+        ((MainActivity) Objects.requireNonNull(getActivity())).menuAddPinned();
     }
 }

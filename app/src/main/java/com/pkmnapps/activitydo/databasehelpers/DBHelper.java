@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.pkmnapps.activitydo.dataclasses.ActivityData;
-import com.pkmnapps.activitydo.dataclasses.ListWidget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String HOME_COLUMN_COLOR = "color";
     public static final String HOME_COLUMN_PINNED = "pinned";
     public static final String HOME_COLUMN_SORT = "sort";
-    Context context;
+    final Context context;
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
         this.context = context;

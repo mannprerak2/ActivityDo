@@ -22,7 +22,7 @@ public class DBHelperText extends SQLiteOpenHelper{
     public static final String HOME_COLUMN_HEAD = "head";
     public static final String HOME_COLUMN_BODY = "body";
 
-    Context context;
+    final Context context;
     public DBHelperText(Context context) {
         super(context, DATABASE_NAME , null, 1);
         this.context = context;

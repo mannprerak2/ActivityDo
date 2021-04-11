@@ -26,6 +26,7 @@ import com.pkmnapps.activitydo.dataclasses.ListItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ListActivity extends AppCompatActivity implements ListActivityInterface {
     String lid,head;//lid is recieved
@@ -40,20 +41,20 @@ public class ListActivity extends AppCompatActivity implements ListActivityInter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        final TextView addItem = (TextView)findViewById(R.id.addItemTextView);
+        final TextView addItem = findViewById(R.id.addItemTextView);
 
         lid = getIntent().getStringExtra("lid");
         head = getIntent().getStringExtra("head");
         data = getIntent();
 
-        headE = (EditText)findViewById(R.id.head_editText);
+        headE = findViewById(R.id.head_editText);
         headE.setText(head);
 
         addItem.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +64,7 @@ public class ListActivity extends AppCompatActivity implements ListActivityInter
                 newListItem();
             }
         });
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ListActivity.this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

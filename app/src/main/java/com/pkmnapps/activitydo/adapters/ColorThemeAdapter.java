@@ -14,9 +14,9 @@ import com.pkmnapps.activitydo.custominterfaces.HomeFragInterace;
 
 public class ColorThemeAdapter extends RecyclerView.Adapter<ColorThemeAdapter.MyViewHolder> {
 
-    HomeFragInterace homeFragInterace;
+    final HomeFragInterace homeFragInterace;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         public MyViewHolder(View view) {
             super(view);
         }

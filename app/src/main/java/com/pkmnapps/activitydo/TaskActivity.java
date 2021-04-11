@@ -52,6 +52,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static com.pkmnapps.activitydo.MConstants.REQUEST_LOAD_IMAGE;
 import static com.pkmnapps.activitydo.MConstants.REQUEST_STORAGE;
@@ -66,7 +67,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
     Uri cameraImageUri = null;
     String tempUid;
     DBHelperWidgets dbHelperWidgets;
-    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,18 +78,18 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
         setTheme(colorTheme(activityData.getColor()));
 
         setContentView(R.layout.activity_task);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(activityData.getName());
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         dbHelperWidgets = new DBHelperWidgets(TaskActivity.this);
 
-        bottomSheetLayout = (BottomSheetLayout)findViewById(R.id.bottomsheet);
+        bottomSheetLayout = findViewById(R.id.bottomsheet);
         setUpJumpControls();
         setUpRecyclerView();
         initialiseRecyclerViewData();
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     @Override
@@ -99,6 +100,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (item.getItemId()) {
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
@@ -124,7 +126,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
         Log.w("n",String.valueOf(requestCode));
         Log.w("n",String.valueOf(resultCode));
         if (resultCode == Activity.RESULT_OK) {
-            Uri selectedImage = null;
+            Uri selectedImage;
             if (requestCode == REQUEST_LOAD_IMAGE && data != null) { //image from gallery
                 selectedImage = data.getData();
                 if (selectedImage != null) {
@@ -197,28 +199,28 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
     }
 
     private void setUpJumpControls(){
-        TextView takeNote = (TextView)findViewById(R.id.note_tvbutton);
+        TextView takeNote = findViewById(R.id.note_tvbutton);
         takeNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createNote();
             }
         });
-        ImageButton more = (ImageButton)findViewById(R.id.more_button);
+        ImageButton more = findViewById(R.id.more_button);
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 displayWidgetChoser();
             }
         });
-        ImageButton list = (ImageButton)findViewById(R.id.list_button);
+        ImageButton list = findViewById(R.id.list_button);
         list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createList();
             }
         });
-        ImageButton image = (ImageButton)findViewById(R.id.image_button);
+        ImageButton image = findViewById(R.id.image_button);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -313,7 +315,7 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
         }
     }
     public void setUpRecyclerView(){
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(TaskActivity.this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -543,8 +545,8 @@ public class TaskActivity extends AppCompatActivity implements TaskActivityInter
     public void createAudio() {
         currentSheetView = LayoutInflater.from(TaskActivity.this).inflate(R.layout.audio_record_view,bottomSheetLayout,false);
         bottomSheetLayout.showWithSheetView(currentSheetView);
-        final ImageButton imageButton = (ImageButton)currentSheetView.findViewById(R.id.recButton);
-        final TextView textView = (TextView)currentSheetView.findViewById(R.id.recText);
+        final ImageButton imageButton = currentSheetView.findViewById(R.id.recButton);
+        final TextView textView = currentSheetView.findViewById(R.id.recText);
 
     }
 
